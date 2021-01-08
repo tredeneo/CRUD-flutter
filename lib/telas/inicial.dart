@@ -1,4 +1,5 @@
-import 'package:crud/api/pega_posts.dart';
+import 'package:crud/api/endpoint/Posts.dart';
+import '../api/modelos/Posts.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("teste"),
+        title: Text("Posts"),
       ),
       body: FutureBuilder(
         future: pegarPosts(),
@@ -39,7 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
       itemCount: 50,
       itemBuilder: (context, index) {
         Posts post = posts[index];
-        return Text(post.title);
+        return ListTile(
+          title: Text(post.title),
+          onTap: () {
+            //Navigator.pushReplacementNamed(context, '/detalhe');
+            Navigator.pushNamed(context, '/detalhe', arguments: post);
+          },
+          dense: true,
+          selected: true,
+        );
       },
     );
   }

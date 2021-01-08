@@ -1,5 +1,6 @@
+import 'package:crud/telas/post_detalhe.dart';
 import 'package:flutter/material.dart';
-import 'inicial.dart';
+import 'telas/inicial.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,11 +11,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/detalhe': (context) => PostDetalhe(),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        brightness: Brightness.light,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: ThemeMode.system,
     );
   }
 }

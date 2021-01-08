@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 List<Posts> postsFromJson(String str) =>
     List<Posts>.from(json.decode(str).map((x) => Posts.fromJson(x)));
@@ -33,9 +32,4 @@ class Posts {
         "title": title,
         "body": body,
       };
-}
-
-Future<List<Posts>> pegarPosts() async {
-  var response = await http.get("https://jsonplaceholder.typicode.com/posts");
-  return postsFromJson(response.body);
 }
