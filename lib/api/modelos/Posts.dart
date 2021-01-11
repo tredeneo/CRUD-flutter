@@ -22,8 +22,8 @@ class Posts {
   factory Posts.fromJson(Map<String, dynamic> json) => Posts(
         userId: json["userId"],
         id: json["id"],
-        title: json["title"],
-        body: json["body"],
+        title: json["title"].toString(),
+        body: json["body"].toString().replaceAll("\n", " "),
       );
 
   Map<String, dynamic> toJson() => {

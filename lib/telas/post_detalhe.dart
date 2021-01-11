@@ -8,8 +8,8 @@ class PostDetalhe extends StatefulWidget {
 }
 
 class _PostDetalheState extends State<PostDetalhe> {
-  bool trocaBotao = true;
   var textController = new TextEditingController();
+  var key = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,37 +18,30 @@ class _PostDetalheState extends State<PostDetalhe> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalhes do Post"),
+        automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: [
-          Flexible(
-            child: TextFormField(
-              keyboardType: TextInputType.multiline,
+      body: Form(
+        key: key,
+        child: Column(
+          children: [
+            TextFormField(
               initialValue: textController.text,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'What do people call you?',
-                labelText: 'Post',
-              ),
-              onSaved: (String value) {
-                // This optional block of code can be used to run
-                // code when the user saves the form.
+              maxLines: null,
+              onSaved: (val) {
+                atualizarPost(val, args.id.toString());
+                print(val);
               },
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    trocaBotao = !trocaBotao;
-                  });
-                },
-                child: Text("modificar"),
-              ),
-              Visibility(
-                child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    key.currentState.save();
+                  },
+                  child: Text("salvar"),
+                ),
+                ElevatedButton(
                   onPressed: () {
                     // Navigate back to first screen when tapped.
                     deletarPost(args.id.toString());
@@ -61,22 +54,16 @@ class _PostDetalheState extends State<PostDetalhe> {
                   },
                   child: Text('Deletar'),
                 ),
-                visible: trocaBotao,
-              ),
-              Visibility(
-                child: ElevatedButton(
+                ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      trocaBotao = !trocaBotao;
-                    });
+                    Navigator.pop(context);
                   },
-                  child: Text('Cancelar'),
-                ),
-                visible: !trocaBotao,
-              )
-            ],
-          ),
-        ],
+                  child: Text('Voltar'),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

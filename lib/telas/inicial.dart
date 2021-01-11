@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Posts post = posts[index];
         return ListTile(
           title: Text(post.title),
+          subtitle: Text(post.body),
           onTap: () {
             //Navigator.pushReplacementNamed(context, '/detalhe');
             Navigator.pushNamed(context, '/detalhe', arguments: post);
